@@ -27,7 +27,7 @@ export const fetchGet = async <ResponseT>(
   query?: string,
 ): Promise<CommonTypes.GetResponseType<ResponseT>> => {
   try {
-    const response = await fetch(`http://localhost:3000/api${path}?${query}`, {
+    const response = await fetch(`/api${path}?${query}`, {
       method: 'GET',
       headers: { authorization: getAccessToken() },
     });
