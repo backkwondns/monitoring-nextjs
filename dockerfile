@@ -16,8 +16,12 @@ RUN apk add tzdata
 RUN rm -rf /etc/localtime; \
   ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime;
 
-ENV PORT 22222
+ENV PORT 4000
 
-EXPOSE 22222
+EXPOSE 4000
 
-CMD ["npm", "start"]
+RUN npm run build
+
+CMD ["npm" ,"run", "dev"]
+
+
