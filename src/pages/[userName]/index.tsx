@@ -29,7 +29,7 @@ export default function Home(props: ApiTypes.FindAccountResponseType): JSX.Eleme
         setInterval(async () => {
           const resultData = await Fetch.fetchGet<ApiTypes.DataType>('/resource/collect', `device=${selectedDevice}`);
           if (resultData.data) setDeviceData(resultData.data.reverse());
-        }, 1000);
+        }, 10000);
       })();
     }
   }, [selectedDevice]);

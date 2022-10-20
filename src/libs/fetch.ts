@@ -1,7 +1,6 @@
 import { CommonTypes } from 'types';
 import { getAccessToken } from 'libs/accesstoken';
 
-const baseURL = 'http://localhost:3000';
 export const fetchPost = async <RequestT, ResponseT>(
   path: string,
   data: RequestT,
