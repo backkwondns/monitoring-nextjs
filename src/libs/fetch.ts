@@ -26,7 +26,7 @@ export const fetchGet = async <ResponseT>(
   query?: string,
 ): Promise<CommonTypes.GetResponseType<ResponseT>> => {
   try {
-    const response = await fetch(`http://localhost:4000/api${path}?${query}`, {
+    const response = await fetch(`/api${path}?${query}`, {
       method: 'GET',
       credentials: 'include',
       headers: { authorization: `Bearer ${Storage.getItem('accessToken')}` },
@@ -44,7 +44,7 @@ export const fetchGet = async <ResponseT>(
 export const fetchPut = async <RequestT>(path: string, data: RequestT): Promise<CommonTypes.ResponseType> => {
   const body = JSON.stringify(data);
   try {
-    const response = await fetch(`http://localhost:4000/api${path}`, {
+    const response = await fetch(`/api${path}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
