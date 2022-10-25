@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { AuthTemplate } from 'templates';
 import { AuthTypes } from 'types';
-import { AccessToken, Fetch, StringFunction } from 'libs';
+import { Fetch, Storage, StringFunction} from 'libs';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
-import { GlobalContext } from 'hooks';
 
 export default function Home(): JSX.Element {
   const router = useRouter();
-  const { setUserName } = GlobalContext.useGlobalContext();
+  const userName = Storage.getItem('userName')
   const [input, setInput] = useState<AuthTypes.AuthType>({ userName: '', passWord: '' });
   const [helperText, setHelperText] = useState<AuthTypes.AuthType>({ userName: '', passWord: '' });
 
   useEffect(() => {
+    if(userName) router.replace('/')
     if (Object.values(helperText).every((value) => value === 'Done')) {
       (async () => {
         const result = await Fetch.fetchPost<AuthTypes.AuthType, AuthTypes.AuthResponseType>('/account', input);
         if (result.statusCode === 200) {
           toast.success('Done!');
           if (result.data) {
-            AccessToken.setAccessToken(result.data.accessToken);
+            Storage.setItem('accessToken',result.data.accessToken);
+            Storage.setItem('userName',input.userName)
+            router.push('/');
           }
-          setUserName(input.userName);
-          router.replace(`/${input.userName}`);
         } else {
           toast.error(result.message);
         }

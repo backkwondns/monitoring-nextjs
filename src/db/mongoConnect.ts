@@ -7,6 +7,7 @@ const uri = process.env.MONGODB_URI;
 const dbName = process.env.MONGODB_DB;
 const options = {};
 
+// eslint-disable-next-line no-console
 console.log(`connect to ${uri}`);
 if (!process.env.MONGODB_URI) {
   throw new Error('Please add your Mongo URI to .env');

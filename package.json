@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next dev -p 4000",
     "build": "next build",
-    "start": "next start -p 4000"
+    "start": "next start -p 4000",
+    "dep": "next build && next start -p 4000"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.36.2",

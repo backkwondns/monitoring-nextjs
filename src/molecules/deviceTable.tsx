@@ -1,7 +1,6 @@
 import React from 'react';
-import { Table, TableBody, TableRow } from 'atoms/index';
-import TableCell from 'atoms/tableCell';
-import { OrganismsTypes } from 'types/index';
+import { Table, TableBody, TableRow, TableCell } from 'atoms';
+import { OrganismsTypes } from 'types';
 import styled, { css } from 'styled-components';
 
 const Container = styled.div`
@@ -9,6 +8,7 @@ const Container = styled.div`
     return css`
       margin-bottom: 10px;
       opacity: ${toggleTable ? 1 : 0};
+      height:${toggleTable ? 'auto': '0px'};
       transform: translateY(${toggleTable ? '10px' : '0px'});
       transition: 0.2s ease-in-out;
     `;
@@ -17,7 +17,6 @@ const Container = styled.div`
 
 export default function DeviceTable(props: OrganismsTypes.DeviceTableType): JSX.Element {
   const { selectedDevice, toggleTable } = props;
-  if (toggleTable)
     return (
       <Container className="Table-Container" toggleTable={toggleTable}>
         <Table>
@@ -50,5 +49,4 @@ export default function DeviceTable(props: OrganismsTypes.DeviceTableType): JSX.
         </Table>
       </Container>
     );
-  return <div />;
 }

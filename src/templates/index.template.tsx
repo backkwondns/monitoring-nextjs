@@ -1,6 +1,6 @@
 import React from 'react';
 import { SideBar, MainContent } from 'organisms';
-import { IndexTypes } from 'types';
+import { MainTypes } from 'types';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -8,13 +8,13 @@ const Container = styled.div`
   overflow: auto;
 `;
 
-export default function IndexTemplate(props: IndexTypes.IndexTemplateTypes): JSX.Element {
-  const { devices, selectedDevice, deviceData } = props;
+export default function IndexTemplate(props: MainTypes.IndexTemplateTypes): JSX.Element {
+  const { deviceList,  deviceInformation, deviceData } = props;
 
   return (
     <Container>
-      <SideBar devices={devices} />
-      {selectedDevice && deviceData ? <MainContent selectedDevice={selectedDevice} deviceData={deviceData} /> : null}
+      <SideBar devices={deviceList} />
+      {deviceInformation && deviceData ? <MainContent selectedDevice={deviceInformation} deviceData={deviceData} /> : null}
     </Container>
   );
 }

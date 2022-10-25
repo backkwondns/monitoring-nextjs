@@ -3,12 +3,12 @@ import { IconButton, SideBarAddContainer } from 'molecules';
 import Menu from 'icons/dehaze.svg';
 import Add from 'icons/add.svg';
 import { CharacterIcon, Divider } from 'atoms';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { OrganismsTypes } from 'types';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchPost } from 'libs/fetch';
 import { toast } from 'react-toastify';
-import { GlobalContext } from 'hooks';
+import { Fetch } from 'libs';
+import {GlobalContext} from "hooks";
 
 const Container = styled.div`
   ${({ menuTrigger }: { menuTrigger: boolean }) => {
@@ -23,16 +23,16 @@ const Container = styled.div`
 `;
 export default function SideBar(props: OrganismsTypes.SideBarType): JSX.Element {
   const { devices } = props;
-  const { setSelectedDevice } = GlobalContext.useGlobalContext();
   const [menuTrigger, setMenuTrigger] = useState<boolean>(false);
   const [addTrigger, setAddTrigger] = useState<boolean>(false);
   const [input, setInput] = useState<OrganismsTypes.SideBarInputType>({ address: '', client: '', key: '' });
+  const { setSelectedDevice } = GlobalContext.useGlobalContext();
 
   const onClickMenu = () => {
     setMenuTrigger((prevState) => !prevState);
   };
   const onClickAdd = () => {
-    if (addTrigger === false) setMenuTrigger(true);
+    if (!addTrigger) setMenuTrigger(true);
     setAddTrigger((prevState) => !prevState);
   };
 
@@ -42,7 +42,7 @@ export default function SideBar(props: OrganismsTypes.SideBarType): JSX.Element 
   };
 
   const onSubmit = async () => {
-    const result = await fetchPost('/account_device', { ...input });
+    const result = await Fetch.fetchPost('/account_device', { ...input });
     if (result.statusCode === 200) toast.success('Done');
     else toast.error(result.message);
   };
@@ -51,7 +51,9 @@ export default function SideBar(props: OrganismsTypes.SideBarType): JSX.Element 
   };
 
   const onClickDevice = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setSelectedDevice(event.currentTarget.name);
+    event.preventDefault();
+    const target = event.currentTarget.name;
+    setSelectedDevice(target)
   };
 
   return (

@@ -9,10 +9,9 @@ const insertOne = async <FilterT, DataT>(
 ): Promise<UpdateResult> => {
   try {
     const client = await cursor;
-    const res = await client.collection(collection).updateOne(filter, { ...data }, { upsert });
-    return res;
-  } catch (error: any) {
-    throw new Error(error);
+    return await client.collection(collection).updateOne(filter, { ...data }, { upsert });
+  } catch (error: unknown) {
+    throw new Error("Error Occurred");
   }
 };
 

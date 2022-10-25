@@ -10,8 +10,8 @@ const findMany = async <RequestT, ResponseT>(
   try {
     const client = await cursor;
     return client.collection(collection).find<ResponseT>(filter).sort(sort, sortDirection).limit(limit).toArray();
-  } catch (error: any) {
-    throw new Error(error);
+  } catch (error: unknown) {
+    throw new Error('Error Occurred');
   }
 };
 

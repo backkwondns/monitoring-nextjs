@@ -5,6 +5,7 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:@next/next/recommended",
     "plugin:react/recommended",
     "airbnb",
     "plugin:import/errors",

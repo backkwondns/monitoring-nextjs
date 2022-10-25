@@ -43,3 +43,8 @@ export type DeviceDataType = {
   client: string;
   device: DeviceType;
 };
+
+export interface RefreshTokenType {
+  accessToken: string;
+  userName: string;
+}

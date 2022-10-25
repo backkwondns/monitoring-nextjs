@@ -10,8 +10,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!refreshToken) {
       return res.status(400).json({ message: 'no token', data: { accessToken: '' } });
     }
-    let payload: any = null;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let payload: any= null;
     try {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       payload = jwt.verify(refreshToken, process.env.SECRET_REFRESH!);
     } catch (error) {
       return res.status(400).json({ message: 'invalid token', data: { accessToken: '' } });
@@ -30,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       );
       return res.status(200).json({
         message: 'Done',
-        data: { accessToken: Token.generateToken('access', { userName, passWord }) },
+        data: { userName, accessToken: Token.generateToken('access', { userName, passWord }) },
       });
     } catch (error) {
       return res.status(400).json({ message: 'Update DB Failed' });

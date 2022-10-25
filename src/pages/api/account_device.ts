@@ -5,15 +5,11 @@ import { ApiTypes } from 'types';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const userName = await Token.isAuth(req);
+    const { userName, token } = await Token.isAuth(req);
     if (userName) {
-      if (req.headers.authorization) {
-        const { authorization } = req.headers;
-        const userFind = await findOne<{ userName: string }, ApiTypes.FindAccountResponseType>('account', { userName });
-        if (userFind) {
-          if (authorization !== userFind.token.accessToken)
-            return res.status(400).json({ message: 'AccessToken is Different!' });
-        }
+      const userFind = await findOne<{ userName: string }, ApiTypes.FindAccountResponseType>('account', { userName });
+      if (userFind) {
+        if (token !== userFind.token.accessToken) return res.status(400).json({ message: 'AccessToken is Different!' });
       }
       if (req.method === 'POST') {
         if (req.body.address && req.body.client && req.body.key) {
@@ -33,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 const duplicatedDevice = await findOne('account', { 'devices.device': collectionName });
                 if (!duplicatedDevice) {
                   try {
-                    const result = await updateOne<
+                    await updateOne<
                       { userName: string },
                       {
                         $addToSet: { devices: { device: string; color: string; client: string } };

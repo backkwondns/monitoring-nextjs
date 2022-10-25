@@ -4,6 +4,6 @@ import * as MoleculesTypes from './molecules.types';
 import * as OrganismsTypes from './organisms.types';
 import * as ApiTypes from './api.types';
 import * as CommonTypes from './common.types';
-import * as IndexTypes from './index.types';
+import * as MainTypes from './main.types';
 
-export type { AuthTypes, SignUpTypes, MoleculesTypes, OrganismsTypes, ApiTypes, CommonTypes, IndexTypes };
+export type { AuthTypes, SignUpTypes, MoleculesTypes, OrganismsTypes, ApiTypes, CommonTypes, MainTypes };

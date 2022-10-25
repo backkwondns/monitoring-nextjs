@@ -4,8 +4,8 @@ const findOne = async <RequestT, ResponseT>(collection: string, filter: RequestT
   try {
     const client = await cursor;
     return client.collection(collection).findOne<ResponseT>(filter);
-  } catch (error: any) {
-    throw new Error(error);
+  } catch (error: unknown) {
+    throw new Error('Error Occurred');
   }
 };
 

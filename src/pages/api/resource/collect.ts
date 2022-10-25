@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { findOne, findMany, insertOne } from 'db';
 import { Token } from 'libs';
-import { ApiTypes } from 'types/index';
+import { ApiTypes } from 'types';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
@@ -19,13 +19,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ message: 'Not Enough Field' });
     }
   } else if (req.method === 'GET') {
-    const userName = await Token.isAuth(req);
+    const {userName , token}= await Token.isAuth(req);
     if (userName) {
-      if (req.headers.authorization) {
-        const { authorization } = req.headers;
         const userFind = await findOne<{ userName: string }, ApiTypes.FindAccountResponseType>('account', { userName });
         if (userFind) {
-          if (authorization !== userFind.token.accessToken)
+          if (token !== userFind.token.accessToken)
             return res.status(400).json({ message: 'AccessToken is Different!' });
           try {
             const { device } = req.query;
@@ -34,7 +32,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           } catch (error) {
             return res.status(400).json({ message: 'Error Occurred' });
           }
-        }
       }
       return res.status(400).json({ message: 'Wrong Credential' });
     }

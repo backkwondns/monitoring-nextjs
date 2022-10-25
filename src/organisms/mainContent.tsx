@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { IconButton } from 'molecules/index';
 import Info from 'icons/info.svg';
-import { DeviceTable, Chart } from 'molecules';
+import { IconButton, DeviceTable, Chart } from 'molecules';
 import { OrganismsTypes } from 'types';
 
 const Container = styled.div`
@@ -24,6 +23,9 @@ const IconContainer = styled.div`
 const ChartContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  *{
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 export default function MainContent(props: OrganismsTypes.MainContentType): JSX.Element {
