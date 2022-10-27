@@ -2,6 +2,16 @@ import { FormButton } from 'molecules';
 import { Form } from 'organisms';
 import styled from 'styled-components';
 import { AuthTypes } from 'types';
+import React from "react";
+import {AuthType} from "types/auth.types";
+
+interface AuthTemplateType {
+  helperText: AuthType;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onPressEnter: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onSubmit: () => void;
+  redirectionPath: string;
+}
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +26,7 @@ const Container = styled.div`
   }
 `;
 
-export default function AuthTemplate(props: AuthTypes.AuthTemplateType): JSX.Element {
+export default function AuthTemplate(props: AuthTemplateType): JSX.Element {
   const { helperText, onChange, onSubmit, onPressEnter, redirectionPath } = props;
   return (
     <Container>

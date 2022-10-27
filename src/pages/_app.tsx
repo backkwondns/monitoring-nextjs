@@ -7,7 +7,11 @@ import { Fetch, Storage } from 'libs';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { GlobalContext } from 'hooks';
-import { ApiTypes } from 'types';
+
+interface RefreshTokenType {
+  accessToken: string;
+  userName: string;
+}
 
 const GlobalStyle = createGlobalStyle`
   body{margin:0;}
@@ -28,21 +32,21 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (router.pathname !== '/auth' && router.pathname !== '/signup') {
       if (Storage.getItem('accessToken') === '') {
-        Fetch.fetchPost<object, ApiTypes.RefreshTokenType>('/refresh_token', {}).then(async (res) => {
+        Fetch.fetchPost<object, RefreshTokenType>('/refresh_token', {}).then(async (res) => {
           if (res.statusCode === 200) {
             if (res.data) {
-              Storage.setItem('accessToken',res.data.accessToken);
-              Storage.setItem('userName',res.data.userName);
+              Storage.setItem('accessToken', res.data.accessToken);
+              Storage.setItem('userName', res.data.userName);
             }
           } else {
-            router.push('/auth');
+            await router.push('/auth');
           }
         });
       }
     } else if (!Storage.validItem('accessToken')) {
-      Fetch.fetchPost<object, ApiTypes.RefreshTokenType>('/refresh_token', {}).then((res) => {
+      Fetch.fetchPost<object, RefreshTokenType>('/refresh_token', {}).then((res) => {
         if (res.statusCode === 200) {
-          if (res.data) Storage.setItem('accessToken',res.data.accessToken);
+          if (res.data) Storage.setItem('accessToken', res.data.accessToken);
         }
       });
     }

@@ -28,7 +28,3 @@ export const validItem = (key: KeyType): ItemType | undefined => {
   }
   return undefined;
 };
-
-export const removeItem = (key: KeyType): void => {
-  localStorage.removeItem(key);
-};

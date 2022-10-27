@@ -1,6 +1,12 @@
 import { Button } from 'atoms';
-import { MoleculesTypes } from 'types';
 import styled from 'styled-components';
+import React from 'react';
+
+interface IconButtonType {
+  icon: JSX.Element;
+  name: string;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
 
 const StyledButton = styled(Button)`
   display: flex;
@@ -9,9 +15,9 @@ const StyledButton = styled(Button)`
   width: 100%;
   height: auto;
   border: none;
-  border-radius: 0px;
-  padding: 0px;
-  margin: 0px;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
 
   svg {
     fill: #eaeaea;
@@ -30,7 +36,7 @@ const StyledButton = styled(Button)`
     background-color: #eaeaea;
   }
 `;
-export default function IconButton(props: MoleculesTypes.IconButtonType): JSX.Element {
+export default function IconButton(props: IconButtonType): JSX.Element {
   const { icon, name, onClick } = props;
   return (
     <StyledButton name={name} onClick={onClick}>

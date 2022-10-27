@@ -1,12 +1,18 @@
 import styled, { css } from 'styled-components';
-import { MoleculesTypes } from 'types';
 import { Button, Input } from 'atoms';
+import React from 'react';
+
+interface SideBarAddContainerType {
+  addTrigger: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: () => void;
+  onPressEnter: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+}
 
 const Container = styled.div`
   ${({ addTrigger }: { addTrigger: boolean }) => {
     return css`
       height: ${addTrigger ? '8rem' : '0px'};
-      //display: ${addTrigger ? 'flex' : 'none'};
     `;
   }}
   display:flex;
@@ -40,7 +46,7 @@ const StyledButton = styled(Button)`
     color: #fff;
   }
 `;
-export default function SideBarAddContainer(props: MoleculesTypes.SideBarAddContainerType): JSX.Element {
+export default function SideBarAddContainer(props: SideBarAddContainerType): JSX.Element {
   const { addTrigger, onChange, onSubmit, onPressEnter } = props;
   return (
     <Container addTrigger={addTrigger}>

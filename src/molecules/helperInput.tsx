@@ -1,6 +1,14 @@
 import { Input } from 'atoms';
-import { MoleculesTypes } from 'types';
 import styled, { css } from 'styled-components';
+import React from 'react';
+
+interface HelperInputType {
+  label: string;
+  name: string;
+  helperText: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onPressEnter: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+}
 
 const Form = styled.div`
   ${({ width }: { width: string }) => {
@@ -26,10 +34,10 @@ const Label = styled.label`
     return css`
       position: absolute;
       bottom: 1px;
-      left: 0px;
+      left: 0;
       pointer-events: none;
       border-bottom: 1px solid #b5b3b3;
-      margin: 0px !important;
+      margin: 0 !important;
       width: 100%;
       height: 100%;
       &::after {
@@ -93,7 +101,7 @@ const InputStyle = styled(Input)`
   }}
 `;
 
-function HelperInput(props: MoleculesTypes.HelperInputType): JSX.Element {
+function HelperInput(props: HelperInputType): JSX.Element {
   const { label, helperText = '', name, onPressEnter, onChange } = props;
   let color;
   if (helperText === 'Done') {

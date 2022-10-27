@@ -14,9 +14,6 @@ export interface FindAccountResponseType extends InsertAccountType {
   devices: devices[];
 }
 
-export interface DeviceFilterType {
-  information: object;
-}
 
 export type DataType = {
   _id: string;
@@ -44,7 +41,3 @@ export type DeviceDataType = {
   device: DeviceType;
 };
 
-export interface RefreshTokenType {
-  accessToken: string;
-  userName: string;
-}

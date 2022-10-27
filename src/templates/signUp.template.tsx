@@ -2,6 +2,15 @@ import { FormButton } from 'molecules';
 import { Form } from 'organisms';
 import styled from 'styled-components';
 import { SignUpTypes } from 'types';
+import React from 'react';
+
+interface SignUpTemplateType {
+  helperText: SignUpTypes.SignUpType;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onPressEnter: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onSubmit: () => void;
+  redirectionPath: string;
+}
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +25,7 @@ const Container = styled.div`
   }
 `;
 
-export default function SignUpTemplate(props: SignUpTypes.SignUpTemplateType): JSX.Element {
+export default function SignUpTemplate(props: SignUpTemplateType): JSX.Element {
   const { helperText, onChange, onSubmit, onPressEnter, redirectionPath } = props;
   return (
     <Container>

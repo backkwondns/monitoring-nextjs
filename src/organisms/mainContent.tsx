@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Info from 'icons/info.svg';
 import { IconButton, DeviceTable, Chart } from 'molecules';
-import { OrganismsTypes } from 'types';
+import { ApiTypes } from 'types';
+
+interface MainContentType {
+  selectedDevice: ApiTypes.DeviceDataType;
+  deviceData: ApiTypes.DataType;
+}
 
 const Container = styled.div`
   display: flex;
@@ -23,12 +28,12 @@ const IconContainer = styled.div`
 const ChartContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  *{
+  * {
     transition: 0.2s ease-in-out;
   }
 `;
 
-export default function MainContent(props: OrganismsTypes.MainContentType): JSX.Element {
+export default function MainContent(props: MainContentType): JSX.Element {
   const { selectedDevice, deviceData } = props;
   const [toggleTable, setToggleTable] = useState(false);
 

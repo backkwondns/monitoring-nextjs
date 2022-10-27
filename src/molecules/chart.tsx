@@ -10,11 +10,15 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { MoleculesTypes } from 'types';
+
+interface ChartType {
+  data: { labels: string[]; datasets: { data: number[] }[] };
+  title: string;
+}
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-export default function Chart(props: MoleculesTypes.ChartType): JSX.Element {
+export default function Chart(props: ChartType): JSX.Element {
   const { data, title } = props;
   const option = { plugins: { legend: { display: false }, title: { display: true, text: title } } };
 

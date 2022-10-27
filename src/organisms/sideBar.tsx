@@ -4,11 +4,22 @@ import Menu from 'icons/dehaze.svg';
 import Add from 'icons/add.svg';
 import { CharacterIcon, Divider } from 'atoms';
 import React, { useState } from 'react';
-import { OrganismsTypes } from 'types';
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-toastify';
 import { Fetch } from 'libs';
-import {GlobalContext} from "hooks";
+import { GlobalContext } from 'hooks';
+
+type device = { device: string; color: string; client: string };
+
+interface SideBarType {
+  devices: device[];
+}
+
+interface SideBarInputType {
+  address: string;
+  client: string;
+  key: string;
+}
 
 const Container = styled.div`
   ${({ menuTrigger }: { menuTrigger: boolean }) => {
@@ -21,11 +32,11 @@ const Container = styled.div`
   background-color: #6667ab;
   transition: all 0.2s ease-in-out;
 `;
-export default function SideBar(props: OrganismsTypes.SideBarType): JSX.Element {
+export default function SideBar(props: SideBarType): JSX.Element {
   const { devices } = props;
   const [menuTrigger, setMenuTrigger] = useState<boolean>(false);
   const [addTrigger, setAddTrigger] = useState<boolean>(false);
-  const [input, setInput] = useState<OrganismsTypes.SideBarInputType>({ address: '', client: '', key: '' });
+  const [input, setInput] = useState<SideBarInputType>({ address: '', client: '', key: '' });
   const { setSelectedDevice } = GlobalContext.useGlobalContext();
 
   const onClickMenu = () => {
@@ -53,7 +64,7 @@ export default function SideBar(props: OrganismsTypes.SideBarType): JSX.Element 
   const onClickDevice = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const target = event.currentTarget.name;
-    setSelectedDevice(target)
+    setSelectedDevice(target);
   };
 
   return (

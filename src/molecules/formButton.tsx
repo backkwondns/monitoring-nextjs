@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from 'atoms';
-import { MoleculesTypes } from 'types';
 import Link from 'next/link';
+
+interface FormButtonType {
+  topButton: string;
+  bottomButton: string;
+  onClickTop: () => void;
+  redirectionPath: string;
+}
 
 const Container = styled.div`
   display: flex;
@@ -10,7 +16,7 @@ const Container = styled.div`
   max-width: 360px;
 `;
 
-export default function FormButton(props: MoleculesTypes.FormButtonType): JSX.Element {
+export default function FormButton(props: FormButtonType): JSX.Element {
   const { topButton, bottomButton, onClickTop, redirectionPath } = props;
   return (
     <Container>

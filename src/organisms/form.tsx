@@ -1,6 +1,12 @@
 import styled from 'styled-components';
-import { OrganismsTypes } from 'types';
 import { HelperInput } from 'molecules';
+import React from 'react';
+
+interface FormType<T> {
+  helperText: T;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onPressEnter: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+}
 
 const Container = styled.div`
   display: flex;
@@ -8,7 +14,7 @@ const Container = styled.div`
   max-width: 360px;
 `;
 
-export default function Form<T>(props: OrganismsTypes.FormType<T>): JSX.Element {
+export default function Form<T>(props: FormType<T>): JSX.Element {
   const { helperText, onChange, onPressEnter } = props;
   return (
     <Container>

@@ -2,6 +2,16 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { updateOne, createIndex, findOne } from 'db';
 import { ApiTypes } from 'types';
 
+interface UpdateFilterType {
+  information: object;
+}
+
+interface UpdateDataType {
+  $set: {
+    information: ApiTypes.DeviceDataType;
+  };
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     if (req.body.key && req.body.device) {
@@ -9,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const address = req.socket.remoteAddress;
       if (address) {
         const collectionName = `${address}_${req.body.client}_resource`;
-        const result = await updateOne<ApiTypes.DeviceFilterType, { $set: { information: ApiTypes.DeviceDataType } }>(
+        const result = await updateOne<UpdateFilterType, UpdateDataType>(
           collectionName,
           { information: { $exists: true } },
           { $set: { information: { address, key, client, device } } },

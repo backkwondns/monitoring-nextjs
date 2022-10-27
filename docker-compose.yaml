@@ -4,7 +4,7 @@ services:
     image: mongo:4.4.17
     container_name: mongo
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - ./monitoring-db:/data
     networks:
@@ -14,7 +14,7 @@ services:
     image: node:16.13.1-alpine
     container_name: monitoring
     ports:
-      - 4000:4000
+      - "4000:4000"
     build: .
     links:
       - "monitoring-mongo:db"

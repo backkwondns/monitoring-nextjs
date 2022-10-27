@@ -22,7 +22,7 @@ const TableData = styled.div`
 
 const Data = styled.p`
   color: #4e4e4e;
-  padding: 0px 5px 0px 5px;
+  padding: 0 5px 0 5px;
 `;
 export default function TableCell(props: TableCellType): JSX.Element {
   const { data, isColumn = false } = props;
