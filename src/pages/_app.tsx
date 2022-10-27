@@ -32,16 +32,18 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (router.pathname !== '/auth' && router.pathname !== '/signup') {
       if (Storage.getItem('accessToken') === '') {
-        Fetch.fetchPost<object, RefreshTokenType>('/refresh_token', {}).then(async (res) => {
-          if (res.statusCode === 200) {
-            if (res.data) {
-              Storage.setItem('accessToken', res.data.accessToken);
-              Storage.setItem('userName', res.data.userName);
+        Fetch.fetchPost<object, RefreshTokenType>('/refresh_token', {})
+          .then(async (res) => {
+            if (res.statusCode === 200) {
+              if (res.data) {
+                Storage.setItem('accessToken', res.data.accessToken);
+                Storage.setItem('userName', res.data.userName);
+              }
+            } else {
+              router.push('/auth');
             }
-          } else {
-            await router.push('/auth');
-          }
-        });
+          })
+          .catch(() => router.push('/auth'));
       }
     } else if (!Storage.validItem('accessToken')) {
       Fetch.fetchPost<object, RefreshTokenType>('/refresh_token', {}).then((res) => {

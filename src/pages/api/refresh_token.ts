@@ -10,9 +10,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!refreshToken) {
       return res.status(400).json({ message: 'no token', data: { accessToken: '' } });
     }
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let payload: any= null;
+    let payload: any = null;
     try {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       payload = jwt.verify(refreshToken, process.env.SECRET_REFRESH!);

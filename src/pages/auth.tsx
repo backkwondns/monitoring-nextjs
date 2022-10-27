@@ -26,7 +26,7 @@ export default function Home(): JSX.Element {
           if (result.data) {
             Storage.setItem('accessToken', result.data.accessToken);
             Storage.setItem('userName', input.userName);
-            await router.push('/');
+            router.push('/');
           }
         } else {
           toast.error(result.message);

@@ -25,7 +25,7 @@ export default function Home(): JSX.Element {
         const result = await Fetch.fetchPut<SignUpTypes.SignUpType>('/account', input);
         if (result.statusCode === 200) {
           toast.success('Done!');
-          await router.replace('/auth');
+          router.replace('/auth');
         } else {
           toast.error(result.message);
         }
