@@ -15,10 +15,10 @@ interface UpdateDataType {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     if (req.body.key && req.body.device) {
-      console.log(req.headers)
-      if(req.headers["x-forwarded-for"]) console.log(req.headers["x-forwarded-for"])
       const { key, client, device } = req.body;
-      const address = req.socket.remoteAddress;
+      let address;
+      if (req.headers['x-forwarded-for']) address = req.headers['x-forwarded-for'].toString();
+      else address = req.socket.remoteAddress;
       if (address) {
         const collectionName = `${address}_${req.body.client}_resource`;
         const result = await updateOne<UpdateFilterType, UpdateDataType>(
@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           true,
         );
         await createIndex(collectionName);
-        if (result) return res.status(200).json({ message: 'Init Done', address: req.socket.remoteAddress });
+        if (result) return res.status(200).json({ message: 'Init Done', address });
       }
       return res.status(500).json({ message: 'Error Occurred' });
     }
