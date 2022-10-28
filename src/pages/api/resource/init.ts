@@ -15,6 +15,8 @@ interface UpdateDataType {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     if (req.body.key && req.body.device) {
+      console.log(req.headers)
+      if(req.headers["x-forwarded-for"]) console.log(req.headers["x-forwarded-for"]
       const { key, client, device } = req.body;
       const address = req.socket.remoteAddress;
       if (address) {
