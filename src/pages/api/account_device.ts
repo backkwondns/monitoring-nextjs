@@ -58,7 +58,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                       },
                       true,
                     );
-                    return res.status(200).json({ message: 'Done' });
+                    return res.status(200).json({ data: { device: collectionName, color, client } });
                   } catch (error) {
                     return res.status(400).json({ message: 'Update DB Failed' });
                   }

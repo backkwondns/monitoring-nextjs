@@ -1,6 +1,9 @@
 import React, { createContext, Dispatch, SetStateAction, useContext, useMemo, useState } from 'react';
+import { ApiTypes } from 'types';
 
 interface ContextType {
+  deviceList: ApiTypes.Device[];
+  setDeviceList: Dispatch<SetStateAction<ApiTypes.Device[]>>;
   selectedDevice: string;
   setSelectedDevice: Dispatch<SetStateAction<string>>;
   userName: string;
@@ -11,12 +14,22 @@ interface ContextType {
 export const GlobalContext = createContext<ContextType | null>(null);
 
 export const Context = ({ children }: { children: React.ReactNode }) => {
+  const [deviceList, setDeviceList] = useState<ApiTypes.Device[]>([]);
   const [selectedDevice, setSelectedDevice] = useState<string>('');
   const [userName, setUserName] = useState<string>('');
   const [accessToken, setAccessToken] = useState<string>('');
   const contextValue = useMemo(
-    () => ({ selectedDevice, setSelectedDevice, userName, setUserName, accessToken, setAccessToken }),
-    [selectedDevice, setSelectedDevice, userName, setUserName, accessToken, setAccessToken],
+    () => ({
+      deviceList,
+      setDeviceList,
+      selectedDevice,
+      setSelectedDevice,
+      userName,
+      setUserName,
+      accessToken,
+      setAccessToken,
+    }),
+    [deviceList, setDeviceList, selectedDevice, setSelectedDevice, userName, setUserName, accessToken, setAccessToken],
   );
   return <GlobalContext.Provider value={contextValue || null}>{children}</GlobalContext.Provider>;
 };

@@ -1,10 +1,11 @@
 import React from 'react';
 import { SideBar, MainContent } from 'organisms';
-import { ApiTypes, MainTypes } from 'types';
+import { ApiTypes } from 'types';
 import styled from 'styled-components';
 
+type Device = { device: string; color: string; client: string };
 export interface IndexTemplateTypes {
-  deviceList: MainTypes.Device[];
+  deviceList: Device[];
   deviceInformation: ApiTypes.DeviceDataType | undefined;
   deviceData: ApiTypes.DataType | undefined;
 }
@@ -12,6 +13,13 @@ export interface IndexTemplateTypes {
 const Container = styled.div`
   display: flex;
   overflow: auto;
+`;
+const NonData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
 `;
 
 export default function IndexTemplate(props: IndexTemplateTypes): JSX.Element {
@@ -22,7 +30,9 @@ export default function IndexTemplate(props: IndexTemplateTypes): JSX.Element {
       <SideBar devices={deviceList} />
       {deviceInformation && deviceData ? (
         <MainContent selectedDevice={deviceInformation} deviceData={deviceData} />
-      ) : null}
+      ) : (
+        <NonData>Please Add Device</NonData>
+      )}
     </Container>
   );
 }

@@ -8,11 +8,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-toastify';
 import { Fetch } from 'libs';
 import { GlobalContext } from 'hooks';
-
-type device = { device: string; color: string; client: string };
+import { ApiTypes } from 'types';
 
 interface SideBarType {
-  devices: device[];
+  devices: ApiTypes.Device[];
 }
 
 interface SideBarInputType {
@@ -34,6 +33,7 @@ const Container = styled.div`
 `;
 export default function SideBar(props: SideBarType): JSX.Element {
   const { devices } = props;
+  const { deviceList, setDeviceList } = GlobalContext.useGlobalContext();
   const [menuTrigger, setMenuTrigger] = useState<boolean>(false);
   const [addTrigger, setAddTrigger] = useState<boolean>(false);
   const [input, setInput] = useState<SideBarInputType>({ address: '', client: '', key: '' });
@@ -53,9 +53,11 @@ export default function SideBar(props: SideBarType): JSX.Element {
   };
 
   const onSubmit = async () => {
-    const result = await Fetch.fetchPost('/account_device', { ...input });
-    if (result.statusCode === 200) toast.success('Done');
-    else toast.error(result.message);
+    const result = await Fetch.fetchPost<SideBarInputType, ApiTypes.Device>('/account_device', { ...input });
+    if (result.statusCode === 200) {
+      toast.success('Done');
+      if (result.data) setDeviceList([...deviceList, result.data]);
+    } else toast.error(result.message);
   };
   const onPressEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') onSubmit();

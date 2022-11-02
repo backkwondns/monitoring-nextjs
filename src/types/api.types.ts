@@ -14,7 +14,6 @@ export interface FindAccountResponseType extends InsertAccountType {
   devices: devices[];
 }
 
-
 export type DataType = {
   _id: string;
   cpu: {
@@ -34,10 +33,15 @@ type DeviceType = {
   arch: string;
 };
 
+export type Device = {
+  device: string;
+  color: string;
+  client: string;
+};
+
 export type DeviceDataType = {
   address: string;
   key: string;
   client: string;
   device: DeviceType;
 };
-
