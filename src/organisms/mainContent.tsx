@@ -31,6 +31,17 @@ const ChartContainer = styled.div`
   * {
     transition: 0.2s ease-in-out;
   }
+
+  @media (min-width: 500px) {
+    div {
+      width: 430px;
+    }
+  }
+  @media (max-width: 500px) {
+    div {
+      width: 100%;
+    }
+  }
 `;
 
 export default function MainContent(props: MainContentType): JSX.Element {

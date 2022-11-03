@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import styled from 'styled-components';
 
 interface ChartType {
   data: { labels: string[]; datasets: { data: number[] }[] };
@@ -18,9 +19,18 @@ interface ChartType {
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
+const ChartContainer = styled.div`
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  margin: 10px;
+`;
 export default function Chart(props: ChartType): JSX.Element {
   const { data, title } = props;
   const option = { plugins: { legend: { display: false }, title: { display: true, text: title } } };
 
-  return <Line data={data} options={option} />;
+  return (
+    <ChartContainer>
+      <Line data={data} options={option} />
+    </ChartContainer>
+  );
 }

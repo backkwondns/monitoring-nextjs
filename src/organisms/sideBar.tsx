@@ -31,6 +31,19 @@ const Container = styled.div`
   background-color: #6667ab;
   transition: all 0.2s ease-in-out;
 `;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DeviceString = styled.p`
+  padding-right: 10px;
+  color: white;
+  width: 100%;
+  align-self: center;
+  margin: 0;
+`;
 export default function SideBar(props: SideBarType): JSX.Element {
   const { devices } = props;
   const { deviceList, setDeviceList } = GlobalContext.useGlobalContext();
@@ -84,12 +97,15 @@ export default function SideBar(props: SideBarType): JSX.Element {
       {devices
         ? devices.map((device) => {
             return (
-              <IconButton
-                key={uuidv4()}
-                icon={<CharacterIcon text={device.client} color={device.color} />}
-                name={device.device}
-                onClick={onClickDevice}
-              />
+              <ButtonContainer>
+                <IconButton
+                  key={uuidv4()}
+                  icon={<CharacterIcon text={device.client} color={device.color} />}
+                  name={device.device}
+                  onClick={onClickDevice}
+                />
+                {menuTrigger ? <DeviceString>{device.client}</DeviceString> : null}
+              </ButtonContainer>
             );
           })
         : null}
